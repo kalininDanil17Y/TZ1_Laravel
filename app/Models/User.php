@@ -29,10 +29,10 @@ class User extends Authenticatable
     public static function boot() {
         parent::boot();
 
-        //static::created(function($item) {
-        //    UserTrophie::create([ 'user_id' => $item['id'] ]);
-        //    echo print_r($item['id']);
-        //});
+        static::created(function($item) {
+            UserTrophie::create([ 'user_id' => $item['id'] ]);
+            echo print_r($item['id']);
+        });
     }
 
     /**
