@@ -24,7 +24,7 @@ class ApiController extends Controller
         //return $this->response( User::all() );
 
         // Сложный
-        return $this->response( DB::select("SELECT id,name,last_seen FROM users") );
+        return $this->success( DB::select("SELECT id,name,last_seen FROM users") );
     }
 
     /**
@@ -46,7 +46,8 @@ class ApiController extends Controller
      */
     public function getUsersNoTrophy()
     {
-        return $this->success( DB::select("SELECT id,name,last_seen FROM users WHERE id IN ( SELECT user_id FROM user_trophies WHERE (SELECT SUM(count) FROM user_trophies WHERE user_id = users.id) > 0 )") );
+
+        return $this->success( DB::select("SELECT id,name,last_seen FROM users WHERE id IN (SELECT user_id FROM user_trophies WHERE (SELECT SUM(count) FROM user_trophies WHERE user_id = users.id) = 0)") );
     }
 
     /**
